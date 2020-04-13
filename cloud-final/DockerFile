@@ -1,0 +1,14 @@
+FROM inetsoftware/ubuntu-java-x11
+MAINTAINER Robert Corbett - rwc27
+RUN apt-get update
+RUN apt-get install -y maven
+WORKDIR /usr/local/service/
+COPY final-project-273902-34d59a10b0b6.json /usr/local/service/
+COPY pom.xml /usr/local/service/pom.xml
+COPY src /usr/local/service/src
+COPY Hugo.tar.gz /usr/local/service
+COPY Shakespeare.tar.gz /usr/local/service
+COPY Tolstoy.tar.gz /usr/local/service
+COPY all.tar.gz /usr/local/service
+RUN mvn package
+CMD ["java", "-cp", "target/cloud-final-1.0-SNAPSHOT.jar", "com.corb.App"]
